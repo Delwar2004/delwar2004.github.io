@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Editorial Opportunity Prediction using Machine Learning
+    </title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="hero">
+
+<span class="badge">
+FlyRank Machine Learning Engineering Internship
+</span>
+
+<h1>
+Editorial Opportunity Prediction using Machine Learning
+</h1>
+
+<h2>
+A Random Forest-Based Decision Support Framework for Content Prioritization
+</h2>
+
+<div class="author-box">
+
+<p><strong>Author</strong><br>
+Md Delwar Husen</p>
+
+<p><strong>Internship</strong><br>
+FlyRank Machine Learning Engineering Internship</p>
+
+<p><strong>Model</strong><br>
+Random Forest Classifier</p>
+
+</div>
+
+</header>
+
+<!-- ========================= -->
+
+<nav class="toc">
+
+<h2>Table of Contents</h2>
+
+<ul>
+
+<li><a href="#abstract">1. Abstract</a></li>
+
+<li><a href="#introduction">2. Introduction</a></li>
+
+<li><a href="#problem">2.1 Problem Statement</a></li>
+
+<li><a href="#motivation">2.2 Motivation</a></li>
+
+<li><a href="#objective">2.3 Research Objective</a></li>
+
+<li><a href="#contribution">2.4 Contributions</a></li>
+
+<li><a href="#dataset">3. Dataset</a></li>
+
+<li><a href="#characteristics">3.1 Dataset Characteristics</a></li>
+
+<li><a href="#features">3.2 Available Features</a></li>
+
+<li><a href="#excluded">3.3 Excluded Information</a></li>
+
+<li><a href="#proxy">3.4 Proxy Target Definition</a></li>
+
+</ul>
+
+</nav>
+
+<!-- ========================= -->
+
+<section id="abstract">
+
+<h2>1. Abstract</h2>
+
+<p>
+
+Identifying high-value content for editorial improvement is a challenging task because manually reviewing thousands of webpages is time-consuming and difficult to scale. This study investigates whether a supervised machine learning approach can estimate editorial opportunity using publicly safe search-performance and engagement features derived from the FlyRank ML Internship dataset. A Random Forest classifier was developed and evaluated against a rule-based baseline, followed by grouped validation, leakage assessment, and failure analysis to promote reliable and reproducible evaluation. The Random Forest model consistently outperformed the baseline on the evaluated metrics, while the validation process indicated that the observed performance remained stable under a more realistic client-level validation strategy. The resulting content action playbook translates model predictions into ranked recommendations intended to support human editorial decision-making rather than replace editorial judgment.
+
+</p>
+
+</section>
+
+<!-- ========================= -->
+
+<section id="introduction">
+
+<h2>2. Introduction</h2>
+
+<p>
+
+Search engines continuously evolve, making it increasingly important for organizations to maintain high-quality and up-to-date website content. As websites grow to thousands of pages, manually identifying which pages should be refreshed or prioritized for editorial improvement becomes a time-consuming and resource-intensive process. A scalable, data-driven approach is therefore needed to help editorial teams focus their efforts on the pages with the greatest potential impact.
+
+</p>
+
+<p>
+
+This project explores the use of supervised machine learning to estimate editorial opportunity from aggregated search performance and user engagement signals. Rather than replacing editorial expertise, the proposed approach is designed as a decision-support framework that ranks pages according to their estimated opportunity for review. Throughout the project, emphasis is placed on reproducibility, honest evaluation, and responsible interpretation of model outputs.
+
+</p>
+
+</section>
+
+<!-- ========================= -->
+
+<section id="problem">
+
+<h3>2.1 Problem Statement</h3>
+
+<p>
+
+Editorial teams often manage large collections of webpages while operating under limited time and resources. Determining which pages should be updated first is challenging because traditional manual review does not scale efficiently and simple rule-based heuristics may overlook complex relationships within search and engagement data.
+
+</p>
+
+<p>
+
+The problem addressed in this study is how to prioritize webpages for editorial review using machine learning while maintaining transparent evaluation practices, minimizing information leakage, and supporting responsible human decision-making.
+
+</p>
+
+</section>
+
+<!-- ========================= -->
+
+<section id="motivation">
+
+<h3>2.2 Motivation</h3>
+
+<p>
+
+The motivation for this work is to investigate whether historical search performance and engagement metrics can be used to support editorial prioritization in a systematic and reproducible manner. Recent advances in machine learning make it possible to identify patterns that are difficult to capture through manually designed rules alone.
+
+</p>
+
+<p>
+
+Beyond predictive performance, this project emphasizes practical deployment considerations such as validation design, leakage assessment, human review, and operational recommendations. These aspects are essential for building machine learning systems that can be trusted in real-world decision-support settings.
+
+</p>
+
+</section>
+
+<!-- ========================= -->
+
+<section id="objective">
+
+<h3>2.3 Research Objective</h3>
+
+<p>
+The primary objective of this study is to develop and evaluate a machine learning-based framework for estimating editorial opportunity using publicly safe search and engagement features.
+</p>
+
+<ul>
+
+<li>Develop a supervised learning model for editorial opportunity estimation.</li>
+
+<li>Compare the Random Forest classifier with a rule-based baseline using the same evaluation protocol.</li>
+
+<li>Evaluate model performance under both random and grouped validation strategies.</li>
+
+<li>Assess potential information leakage and model limitations.</li>
+
+<li>Transform validated predictions into a practical content action playbook that supports editorial decision-making.</li>
+
+</ul>
+
+</section>
+
+<!-- ========================= -->
+
+<section id="contribution">
+
+<h3>2.4 Contributions</h3>
+
+<ul>
+
+<li>Designed a reproducible machine learning pipeline for editorial opportunity estimation.</li>
+
+<li>Established a proxy target formulation suitable for supervised learning while preserving public-safe reporting.</li>
+
+<li>Compared a Random Forest classifier against a rule-based baseline using consistent evaluation metrics.</li>
+
+<li>Performed grouped client-level validation together with leakage auditing and failure analysis.</li>
+
+<li>Developed a ranked content action playbook including reason codes, human review guidelines, monitoring recommendations, and retraining considerations.</li>
+
+<li>Produced a reproducible research artifact integrating experimentation, validation, interpretation, and deployment.</li>
+
+</ul>
+
+</section>
+
+<!-- ========================= -->
+
+<section id="dataset">
+
+<h2>3. Dataset</h2>
+
+<p>
+
+This study was conducted using the <strong>FlyRank ML Internship dataset</strong>, which contains anonymized and aggregated website performance data collected from real-world production environments. To preserve privacy and confidentiality, all analyses were performed using publicly safe features without exposing client identities, website URLs, or search queries.
+
+</p>
+
+<p>
+
+The dataset consists of page-level search performance, engagement, and traffic metrics that were aggregated for machine learning experimentation. These features were used to estimate editorial opportunity through a supervised learning framework while maintaining responsible reporting practices.
+
+</p>
+
+</section>
+
+<!-- ========================= -->
+
+<section id="characteristics">
+
+<h3>3.1 Dataset Characteristics</h3>
+
+<p>
+The following table summarizes the characteristics of the dataset used throughout this study.
+</p>
+
+<div class="table-wrapper">
+
+<table>
+
+<tr>
+<th>Characteristic</th>
+<th>Value</th>
+</tr>
+
+<tr>
+<td>Dataset Source</td>
+<td>FlyRank ML Internship Dataset</td>
+</tr>
+
+<tr>
+<td>Dataset Release</td>
+<td>Internship Release</td>
+</tr>
+
+<tr>
+<td>Rows</td>
+<td>331,437</td>
+</tr>
+
+<tr>
+<td>Columns</td>
+<td>26</td>
+</tr>
+
+<tr>
+<td>Learning Task</td>
+<td>Binary Classification</td>
+</tr>
+
+<tr>
+<td>Target</td>
+<td>Proxy Target</td>
+</tr>
+
+<tr>
+<td>Model</td>
+<td>Random Forest</td>
+</tr>
+
+<tr>
+<td>Validation</td>
+<td>Random Split + Grouped Validation</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+
+<section id="features">
+
+<h3>3.2 Available Features</h3>
+
+<div class="table-wrapper">
+
+<table>
+
+<tr>
+
+<th>Feature Group</th>
+
+<th>Representative Features</th>
+
+</tr>
+
+<tr>
+
+<td>Search Visibility</td>
+
+<td>gsc_impressions_sum, log_impressions</td>
+
+</tr>
+
+<tr>
+
+<td>Click Performance</td>
+
+<td>gsc_clicks_sum, ctr_mean</td>
+
+</tr>
+
+<tr>
+
+<td>Search Position</td>
+
+<td>gsc_avg_position_mean</td>
+
+</tr>
+
+<tr>
+
+<td>User Engagement</td>
+
+<td>engaged_sessions_mean, engagement_time_mean</td>
+
+</tr>
+
+<tr>
+
+<td>Traffic Sources</td>
+
+<td>sessions_organic_mean, sessions_ai_mean</td>
+
+</tr>
+
+<tr>
+
+<td>Availability Indicators</td>
+
+<td>ga4_missing, position_missing</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+
+<section id="excluded">
+
+<h3>3.3 Excluded Information</h3>
+
+<ul>
+
+<li>Client names</li>
+
+<li>Website URLs</li>
+
+<li>Search queries</li>
+
+<li>Page titles</li>
+
+<li>Personally identifiable information (PII)</li>
+
+<li>Proprietary business metadata</li>
+
+</ul>
+
+<p>
+
+These exclusions ensure that the published research artifact remains reproducible while respecting data privacy requirements.
+
+</p>
+
+</section>
+
+<!-- ========================= -->
+
+<section id="proxy">
+
+<h3>3.4 Proxy Target Definition</h3>
+
+<p>
+
+Because direct editorial labels were not available, this study formulated a binary proxy target using the <strong>Editorial Opportunity Score</strong>.
+
+</p>
+
+<p>
+
+Pages with an Editorial Opportunity Score greater than or equal to the 85th percentile were assigned to the positive class (<strong>1</strong>), while all remaining pages were assigned to the negative class (<strong>0</strong>). This formulation enabled supervised learning while maintaining a transparent and reproducible label definition.
+
+</p>
+
+<p>
+
+The proxy target should be interpreted as an approximation of editorial opportunity rather than a direct measure of content quality.
+
+</p>
+
+</section>
+
+  <!-- ===================================================== -->
+<!-- SECTION 4 -->
+<!-- ===================================================== -->
+
+<section id="methodology">
+
+<h2>4. Methodology</h2>
+
+<p>
+This study follows a structured machine learning workflow designed to estimate editorial opportunity using aggregated search performance and engagement metrics. The methodology emphasizes reproducibility, transparent label construction, fair model comparison, and honest validation practices.
+</p>
+
+<p>
+The overall workflow begins with feature engineering and proxy target construction, followed by the development of a rule-based baseline and a supervised Random Forest classifier. Model performance is evaluated using both conventional random train-test splitting and grouped client-level validation to assess generalization while reducing potential information leakage.
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="workflow">
+
+<h3>4.1 Overall Workflow</h3>
+
+<div class="workflow-box">
+
+<pre>
+Raw FlyRank Dataset
+        │
+        ▼
+Feature Engineering
+        │
+        ▼
+Proxy Target Construction
+        │
+        ▼
+Rule-Based Baseline
+        │
+        ▼
+Random Forest Model
+        │
+        ▼
+Random Split Evaluation
+        │
+        ▼
+Grouped Validation
+        │
+        ▼
+Leakage Audit & Failure Analysis
+        │
+        ▼
+Content Action Playbook
+</pre>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="feature-engineering">
+
+<h3>4.2 Feature Engineering</h3>
+
+<p>
+
+Feature engineering focused on transforming aggregated search performance and user engagement metrics into a consistent representation suitable for supervised learning. Only publicly safe numerical features were retained, while identifiers and confidential information were excluded from model training.
+
+</p>
+
+<p>
+
+The engineered feature set included metrics describing search visibility, click performance, search position, user engagement, traffic acquisition, and data availability. These complementary signals were used to estimate editorial opportunity from historical website performance.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="label-definition">
+
+<h3>4.3 Label Definition</h3>
+
+<p>
+
+Because manually annotated editorial labels were unavailable, a proxy target was constructed using the Editorial Opportunity Score. Pages with an Editorial Opportunity Score greater than or equal to the 85th percentile were assigned to the positive class, while all remaining pages were assigned to the negative class.
+
+</p>
+
+<p>
+
+This proxy formulation enables supervised learning while maintaining a transparent and reproducible labeling strategy. The resulting labels represent estimated editorial opportunity and should not be interpreted as direct measures of content quality.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="baseline">
+
+<h3>4.4 Rule-Based Baseline</h3>
+
+<p>
+
+A rule-based baseline was developed to establish a simple reference for comparison with the machine learning model. The baseline uses manually defined scoring rules derived from search performance indicators to identify pages with potential editorial opportunity.
+
+</p>
+
+<p>
+
+Although heuristic approaches are easy to interpret, they cannot capture complex interactions among multiple features. Consequently, the baseline serves as a benchmark rather than the final decision-support system.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="randomforest">
+
+<h3>4.5 Random Forest Classifier</h3>
+
+<p>
+
+A Random Forest classifier was selected as the primary machine learning model because of its robustness, ability to model non-linear relationships, and strong performance on structured tabular data.
+
+</p>
+
+<p>
+
+The model was trained using the engineered feature set and evaluated using standard classification metrics including Accuracy, Precision, Recall, F1 Score, and ROC-AUC. The same evaluation protocol was applied to both the baseline and the Random Forest model to ensure a fair comparison.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="validation">
+
+<h3>4.6 Validation Design</h3>
+
+<p>
+
+Two validation strategies were employed during this study.
+
+</p>
+
+<p>
+
+The initial evaluation used a conventional random train-test split to establish a baseline estimate of predictive performance. To better assess model generalization and reduce the possibility of information leakage, a grouped client-level validation strategy was subsequently applied. Under grouped validation, all pages belonging to the same client were assigned exclusively to either the training or testing set.
+
+</p>
+
+<p>
+
+Comparing these two validation strategies provides additional evidence regarding the stability of the reported performance and reduces the likelihood of optimistic evaluation caused by shared client-specific information.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="leakage">
+
+<h3>4.7 Leakage Audit</h3>
+
+<p>
+
+Potential sources of information leakage were examined throughout the modeling process. Direct identifiers, including client identifiers and content identifiers, were excluded from the feature set before model training. In addition, grouped client-level validation was performed to prevent pages belonging to the same client from appearing simultaneously in both the training and testing datasets.
+
+</p>
+
+<p>
+
+The observed model performance remained consistent after applying grouped validation, providing additional confidence that the reported results were not solely driven by client-specific information leakage. Nevertheless, the reported findings should be interpreted as estimates derived from the available proxy target and evaluation protocol rather than definitive measures of editorial quality.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- SECTION 5 -->
+<!-- ===================================================== -->
+
+<section id="results">
+
+<h2>5. Results</h2>
+
+<p>
+
+This section presents the performance of the proposed machine learning framework. The Random Forest classifier is first compared with the rule-based baseline using the same evaluation protocol. Model performance is then examined under grouped client-level validation to assess generalization. Finally, visualizations and interpretation are provided to support the reported findings.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="baseline-results">
+
+<h3>5.1 Baseline Comparison</h3>
+
+<p>
+
+The Random Forest classifier was compared against the rule-based baseline using the same evaluation protocol developed during the internship. The comparison indicates that the machine learning model achieved stronger predictive performance than the heuristic baseline across the evaluated metrics.
+
+</p>
+
+<img src="figures/Rule-Based Baseline vs Random Forest.png"
+class="paper-figure">
+
+<p class="caption">
+
+Figure 1. Performance comparison between the rule-based baseline and the Random Forest classifier using identical evaluation metrics.
+
+</p>
+
+<p>
+
+The comparison demonstrates that the Random Forest classifier consistently achieved higher performance across all evaluated metrics than the rule-based baseline. These findings suggest that learning from historical data provides a more reliable estimate of editorial opportunity than manually designed scoring rules.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="roc">
+
+<h3>5.2 Random Forest Performance</h3>
+
+<p>
+
+The discrimination ability of the Random Forest classifier was further examined using the Receiver Operating Characteristic (ROC) curve. The ROC curve illustrates the trade-off between the true positive rate and the false positive rate across different decision thresholds.
+
+</p>
+
+<img src="figures/Random Forest ROC Curve.png"
+class="paper-figure">
+
+<p class="caption">
+
+Figure 2. Receiver Operating Characteristic (ROC) curve of the Random Forest classifier.
+
+</p>
+
+<p>
+
+The ROC curve demonstrates that the classifier effectively distinguishes between higher and lower editorial opportunity pages across a wide range of decision thresholds, supporting its use as a ranking-based decision-support model.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="confusion">
+
+<h3>5.3 Classification Performance</h3>
+
+<p>
+
+The classification behavior of the Random Forest model was further examined using the confusion matrix. Unlike aggregate performance metrics, the confusion matrix provides a detailed view of correctly classified and misclassified instances.
+
+</p>
+
+<img src="figures/Random Forest - Confusion Matrix.png"
+class="paper-figure">
+
+<p class="caption">
+
+Figure 3. Confusion matrix of the Random Forest classifier.
+
+</p>
+
+<p>
+
+The confusion matrix shows that the majority of webpages were classified correctly for both classes. Although a small number of false positives and false negatives remain, the overall prediction pattern indicates consistent classification performance.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="honest-validation">
+
+<h3>5.4 Honest Validation</h3>
+
+<p>
+
+To assess model generalization beyond conventional random splitting, grouped client-level validation was performed. This strategy prevents pages from the same client from appearing in both the training and testing datasets.
+
+</p>
+
+<img src="figures/Random Split vs Grouped Validation.png"
+class="paper-figure">
+
+<p class="caption">
+
+Figure 4. Performance comparison between conventional random splitting and grouped client-level validation.
+
+</p>
+
+<p>
+
+The comparison indicates that the Random Forest classifier maintained similar performance under grouped validation, suggesting that the reported findings are not solely dependent on shared client-specific information.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="discussion">
+
+<h3>5.5 Discussion</h3>
+
+<p>
+
+Across all evaluated metrics, the Random Forest classifier consistently outperformed the rule-based baseline. The additional grouped validation experiment strengthened confidence that the observed performance reflects meaningful predictive capability rather than optimistic estimates caused by data leakage.
+
+</p>
+
+<p>
+
+The model estimates a proxy measure of editorial opportunity rather than directly predicting content quality or future search rankings. Therefore, the generated predictions should be interpreted as prioritization signals intended to support human editorial review.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- SECTION 6 -->
+<!-- ===================================================== -->
+
+<section id="limitations">
+
+<h2>6. Limitations & Honest Framing</h2>
+
+<p>
+
+The results presented in this study should be interpreted within the scope of the available dataset, the defined proxy target, and the adopted evaluation protocol. Throughout this project, emphasis was placed on transparent reporting, responsible interpretation, and avoiding conclusions that extend beyond the supporting evidence.
+
+</p>
+
+<p>
+
+Rather than claiming definitive prediction of editorial quality or future search performance, the proposed framework estimates editorial opportunity using historical search performance and engagement signals. Consequently, the reported findings are intended to support informed editorial prioritization rather than replace human expertise.
+
+</p>
+
+</section>
+
+<section>
+
+<h3>6.1 Study Limitations</h3>
+
+<ul>
+
+<li>The model relies on a proxy target rather than manually annotated editorial labels.</li>
+
+<li>The available features may not capture every factor influencing editorial decisions.</li>
+
+<li>Grouped validation reduces—but cannot completely eliminate—potential dataset bias.</li>
+
+<li>The reported performance reflects the internship dataset and should not be assumed to generalize automatically to every website.</li>
+
+<li>The study evaluates editorial opportunity estimation rather than downstream SEO outcomes.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h3>6.2 Honest Interpretation</h3>
+
+<p>
+
+The Random Forest classifier consistently demonstrated stronger performance than the rule-based baseline under the evaluated experimental settings. However, these findings should be interpreted as evidence that the model learned meaningful patterns within the available dataset rather than proof of universal predictive capability.
+
+</p>
+
+</section>
+
+<section>
+
+<h3>6.3 Appropriate Use</h3>
+
+<p>
+
+The proposed framework is intended as a decision-support system for editorial teams. Final editorial decisions should continue to incorporate domain expertise, business objectives, and qualitative content evaluation alongside the model's recommendations.
+
+</p>
+
+</section>
+
+<section>
+
+<h3>6.4 Future Improvements</h3>
+
+<ul>
+
+<li>Evaluate additional machine learning algorithms.</li>
+
+<li>Investigate temporal validation strategies.</li>
+
+<li>Expand the feature set using additional publicly safe signals.</li>
+
+<li>Evaluate ranking-based metrics.</li>
+
+<li>Assess real-world editorial impact after deployment.</li>
+
+</ul>
+
+</section>
+<!-- ===================================================== -->
+<!-- SECTION 7 -->
+<!-- ===================================================== -->
+
+<section id="recommendations">
+
+<h2>7. Ranked Recommendations</h2>
+
+<p>
+
+The validated Random Forest model provides prediction probabilities that can be transformed into actionable editorial recommendations. Rather than presenting model predictions alone, this study converts the estimated editorial opportunity scores into a structured content action playbook that supports practical decision-making.
+
+</p>
+
+<p>
+
+The playbook prioritizes webpages according to predicted editorial opportunity while incorporating transparent reason codes, human review guidelines, operational considerations, and monitoring recommendations. This ensures that model outputs remain interpretable and useful for editorial teams.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="playbook">
+
+<h3>7.1 Content Action Playbook</h3>
+
+<p>
+
+The proposed content action playbook translates machine learning predictions into prioritized editorial actions. Pages receiving higher prediction probabilities are assigned higher review priority, allowing editorial teams to focus limited resources on pages estimated to have greater editorial opportunity.
+
+</p>
+
+<p>
+
+The generated recommendations are intended to support human decision-making rather than automate editorial actions.
+
+</p>
+
+<img src="figures/priority_distribution.png" class="paper-figure">
+
+<p class="caption">
+
+Figure 5. Distribution of editorial priority levels generated by the content action playbook.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="queue">
+
+<h3>7.2 Ranked Action Queue</h3>
+
+<p>
+
+The ranked action queue is exported directly from the validated Random Forest model and orders webpages according to their estimated editorial opportunity. Each recommendation includes a priority level together with supporting reason codes to improve transparency and assist editorial review.
+
+</p>
+
+<p>
+
+The exported queue is included with the project outputs and can be regenerated by executing the corresponding notebook.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="reason-codes">
+
+<h3>7.3 Reason Codes</h3>
+
+<p>
+
+Each recommendation is accompanied by interpretable reason codes derived from observable search-performance characteristics.
+
+</p>
+
+<ul>
+
+<li>High Impressions</li>
+
+<li>Low CTR</li>
+
+<li>Strong Search Position</li>
+
+<li>Low Engagement</li>
+
+<li>General Review</li>
+
+</ul>
+
+<p>
+
+These explanations improve interpretability while allowing editorial teams to validate model recommendations before implementation.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="human-review">
+
+<h3>7.4 Human Review Guidelines</h3>
+
+<p>
+
+Although the model provides prioritized recommendations, every suggested action should be reviewed by human editors before implementation.
+
+</p>
+
+<ul>
+
+<li>Verify current page relevance.</li>
+
+<li>Review content quality and completeness.</li>
+
+<li>Confirm search intent alignment.</li>
+
+<li>Consider business priorities.</li>
+
+<li>Combine model recommendations with editorial expertise.</li>
+
+</ul>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="cost-value">
+
+<h3>7.5 Cost–Value Considerations</h3>
+
+<p>
+
+Editorial resources are limited. The ranked action queue allows teams to allocate effort according to estimated editorial opportunity instead of reviewing all pages equally.
+
+</p>
+
+<p>
+
+This prioritization strategy supports efficient use of editorial resources while maintaining human oversight throughout the review process.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+
+<section id="monitoring">
+
+<h3>7.6 Monitoring & Retraining</h3>
+
+<p>
+
+The recommendation framework should be monitored periodically to ensure continued reliability.
+
+</p>
+
+<ul>
+
+<li>Monitor prediction distributions.</li>
+
+<li>Review feature drift.</li>
+
+<li>Track missing-data patterns.</li>
+
+<li>Evaluate future validation performance.</li>
+
+<li>Retrain when meaningful data drift is observed.</li>
+
+</ul>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- SECTION 8 -->
+<!-- ===================================================== -->
+
+<section id="reproducibility">
+
+<h2>8. Reproducibility</h2>
+
+<p>
+
+Reproducibility is a fundamental principle of trustworthy machine learning research. Throughout this internship, the workflow was implemented as a sequence of modular notebooks, allowing every stage of the pipeline to be independently reproduced and verified.
+
+</p>
+
+<p>
+
+Figures, exported outputs, and supporting documentation included in this paper were generated directly from the corresponding notebooks using the FlyRank ML Internship dataset.
+
+</p>
+
+<h3>Repository Workflow</h3>
+
+<pre class="workflow-box">
+w01_research_question.ipynb
+        │
+        ▼
+w02_ml_task_framing.ipynb
+        │
+        ▼
+w03_data_contract_ipynb.ipynb
+        │
+        ▼
+w04_baseline_score.ipynb
+        │
+        ▼
+w05_model.ipynb
+        │
+        ▼
+w06_validation_audit.ipynb
+        │
+        ▼
+w07_action_playbook.ipynb
+        │
+        ▼
+capstone.ipynb
+</pre>
+
+<h3>Experimental Environment</h3>
+
+<div class="table-wrapper">
+
+<table>
+
+<tr>
+<th>Component</th>
+<th>Environment</th>
+</tr>
+
+<tr>
+<td>Programming Language</td>
+<td>Python 3</td>
+</tr>
+
+<tr>
+<td>Development Platform</td>
+<td>Google Colab</td>
+</tr>
+
+<tr>
+<td>Machine Learning</td>
+<td>Scikit-learn</td>
+</tr>
+
+<tr>
+<td>Visualization</td>
+<td>Matplotlib</td>
+</tr>
+
+<tr>
+<td>Version Control</td>
+<td>GitHub</td>
+</tr>
+
+</table>
+
+</div>
+
+<p>
+
+Random seed <strong>42</strong> and fixed validation strategies were used wherever applicable to improve reproducibility.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- SECTION 9 -->
+<!-- ===================================================== -->
+
+<section id="acknowledgments">
+
+<h2>9. Acknowledgments</h2>
+
+<p>
+
+This project was completed as part of the <strong>FlyRank Machine Learning Engineering Internship</strong>, which provided a structured environment for applying machine learning to real-world search-performance data and responsible editorial decision-support.
+
+</p>
+
+<p>
+
+The author gratefully acknowledges the guidance, learning resources, and project framework provided throughout the internship. The notebook-based workflow, emphasis on reproducible experimentation, honest validation practices, and practical deployment significantly contributed to the development of this research project.
+
+</p>
+
+<div class="credit-box">
+
+<h3>Built on the FlyRank ML Internship dataset.</h3>
+
+<p>
+
+Dataset and internship credit:
+
+<br><br>
+
+<a href="https://flyrank.ai/" target="_blank">
+
+https://flyrank.ai/
+
+</a>
+
+</p>
+
+</div>
+
+<p>
+
+The dataset used in this study contains anonymized and publicly safe information prepared specifically for educational and research purposes. No client identities, website URLs, proprietary search queries, or personally identifiable information are included in this publication.
+
+</p>
+
+<p>
+
+Finally, sincere thanks are extended to the FlyRank team for providing the opportunity to develop practical machine learning skills through real-world datasets, reproducible workflows, and research-oriented engineering practices.
+
+</p>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
+
+<footer>
+
+<hr>
+
+<h2>
+
+Editorial Opportunity Prediction using Machine Learning
+
+</h2>
+
+<p>
+
+<strong>Author:</strong> Md Delwar Husen
+
+</p>
+
+<p>
+
+FlyRank Machine Learning Engineering Internship
+
+</p>
+
+<p>
+
+Built on the FlyRank ML Internship dataset
+
+</p>
+
+<p>
+
+<a href="https://flyrank.ai/" target="_blank">
+
+https://flyrank.ai/
+
+</a>
+
+</p>
+
+<p>
+
+© 2026 Md Delwar Husen. This work is published for educational and research purposes.
+
+</p>
+
+</footer>
+
+</div>
+
+</body>
+
+</html>
+  
